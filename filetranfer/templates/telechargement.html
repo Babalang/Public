@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+        <link href=/static/style.css rel="stylesheet">
+        <title>Gest.MDP</title>
+    </head>
+    <body>
+        {% include 'banniere.html' %}
+        <center>
+            <h1>Bienvenue {{id}}</h1>
+            <div id="container">
+            {% if current_user.is_authenticated %}
+            <ul id="liste-fichiers">
+                <!-- La liste des fichiers sera ajoutée ici dynamiquement -->
+                {% for fichier in fichiers %}
+                <a href="/Telechargement/{{fichier}}" download>{{fichier}}</a><BR>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+        </center>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <script>
+                    alert("{{ category }}: {{ message }}");
+            </script>
+            {% endfor %} 
+        {% endif %}
+    {% endwith %}
+    </body>
+</html>

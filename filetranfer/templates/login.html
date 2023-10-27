@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href=/static/connexion.css rel="stylesheet">
+        <title>Connexion</title>
+    </head>
+    <body>
+        {% include 'banniere.html' %}
+        <center><h1>Connexion</h1>
+        <form method="post">
+            <div class = "text_field">
+                <input type="text" name="user_id" id="user_id" placeholder="Nom d'utilisateur"><br>
+            </div>
+            <div class = "text_field">
+                <input type="password" name="user_password" id="user_password" placeholder="Mot de passe"><br>
+            </div>
+            <input type="submit" value="Connexion">
+        </form>
+    <br><div class="Register">Pas encore inscrit ? <a href="/register">Inscription</a><br></div>
+    </center>
+    </body>
+</html>

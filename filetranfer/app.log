@@ -1,0 +1,25 @@
+2023-10-24 23:45:18,687 [INFO] Le serveur se lance sur l'adresse : http://192.168.1.22:5224/
+2023-10-24 23:45:27,652 [INFO] None est dans le menu
+2023-10-24 23:45:31,892 [INFO] Un utilisateur va se connecter
+2023-10-24 23:45:51,230 [INFO] L'utilisateur : Admin se connecte
+2023-10-24 23:45:51,236 [INFO] Admin est dans le menu
+2023-10-24 23:45:58,925 [ERROR] Exception on /Telechargement [GET]
+Traceback (most recent call last):
+  File "/Users/BastianLangouet/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 1455, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/BastianLangouet/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 869, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/BastianLangouet/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 867, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/BastianLangouet/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 852, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/BastianLangouet/Desktop/perso/filetranfer/serveur.py", line 167, in telechargement
+    fichiers = [fichier for fichier in os.listdir(app.config['UPLOAD_FOLDER']) if os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], fichier))]
+FileNotFoundError: [Errno 2] No such file or directory: 'uploads'
+2023-10-24 23:47:05,449 [INFO] Admin: Regarde les fichiers
+2023-10-24 23:47:08,014 [INFO] Admin est dans le menu
+2023-10-24 23:47:31,295 [INFO] Un dossier/fichier est enregitré par Admin
+2023-10-24 23:47:31,300 [INFO] Admin est dans le menu
+2023-10-24 23:47:33,835 [INFO] Admin: Regarde les fichiers
+2023-10-24 23:50:24,345 [INFO] Le serveur se lance sur l'adresse : http://192.168.1.22:5224/
+2023-10-26 22:47:29,673 [INFO] Le serveur se lance sur l'adresse : http://192.168.1.22:5224/

@@ -1,0 +1,12 @@
+<head>
+    <link href=/static/style.css rel="stylesheet">
+    <title>FileTransfer</title>
+</head>
+<div class="bandeau">
+    <div class="Titre"><a href="/"><img src="/static/FT.jpg" alt="Le logo"></a></div>
+    {% if current_user.is_authenticated == False %}
+        <div class="texte-en-bas"><a href="/login">Connexion</a></div>
+    {% else %}
+    <div class="texte-en-bas"><a href="/logout" >Déconnexion</a> ou <a href="/DelAccount">Suppression du compte</a></div>
+    {% endif %}
+</div>
