@@ -1,0 +1,7 @@
+discord.py
+googletrans==4.0.0-rc1
+requests
+flask
+flask_socketio
+cryptography
+flask_login

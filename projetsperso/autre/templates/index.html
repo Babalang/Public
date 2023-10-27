@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href=/static/style.css rel="stylesheet">
+        <title>Gest.MDP</title>
+        <script>
+            function Generate_password(){
+                window.location.href="/Generate_password";
+            }
+            function Display_password(){
+                window.location.href="/Display";
+            }
+            function Del_password(){
+                window.location.href="/Del_password";
+            }
+        </script>
+    </head>
+    <body>
+        <center>
+            <h1>Bienvenue {{id}}</h1>
+            <div id="container">
+            <p>Ceci est un gestionnaire de mot de passe.<BR>
+                Vous pouvez si vous le souhaiter avoir accès à plusieurs options:
+            </p>
+            <input type="button" value="Générer un mot de passe" onclick="Generate_password()">
+            {% if current_user.is_authenticated %}
+                <input type="button" value="Afficher un mot de passe" onclick="Display_password()">
+                <input type="button" value="Supprimer un mot de passe" onclick="Del_password()">
+            {% endif %}
+        </div>
+        <div>
+            {% if current_user.is_authenticated == False %}
+                <a href="/login">Connexion</a>
+            {% else %}
+                <a href="/logout">Déconnexion</a><br>
+                <a href="/DelAccount">Suppression du compte</a>
+            {% endif %}
+        </div>
+        </center>
+
+    </body>
+</html>

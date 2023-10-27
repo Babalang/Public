@@ -1,0 +1,33 @@
+
+QMainWindow{
+    background-color: #767676 !important;
+}
+
+QLabel{
+    color: rgb(255, 255, 255) !important;
+}
+QPushButton {
+	background-color: #606060 !important;
+	color: #ffffff !important;
+	border: none !important;
+    border-radius: 10px !important;
+	width: 100% !important;
+}
+QPushButton:hover {
+	background-color: #60606079 !important;
+	color: #ffffff !important;
+}
+QLineEdit{
+    background-color:#858585;
+    border: none !important;
+    border-radius: 10px !important;
+    width: 100% !important;
+}
+QLineEdit:focus{
+    background-color: rgb(107, 107, 107) !important;
+}
+QTableWidget{
+    border-collapse: collapse;
+    font-size: 22.4px;
+    min-width: 600px;
+}

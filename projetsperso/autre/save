@@ -1,0 +1,124 @@
+# Chiffrer un mot de passe
+def encrypt(mot_de_passe,key):
+	fernet = Fernet(key)
+	return fernet.encrypt(mot_de_passe.encode())
+
+# Décrypter un mot de passe
+def decrypt(mot_de_passe_chiffre,key):
+	fernet = Fernet(key)
+	return fernet.decrypt(mot_de_passe_chiffre.encode()).decode()
+
+# Permet de sauvegarder un fichier json
+def json_save(files, items):
+	with open(files, 'w') as file:
+		json.dump(items, file)
+
+# Permet de rÃ©cupÃ©rer un fichier json
+def json_load(files):
+	with open(files) as file:
+		return json.load(file)
+
+# Permet de rÃ©cupÃ©rer une variable dans un fichier json
+def json_variable(files):
+	return json_load(f"{files}.json")
+	
+def json_sendVariable(files, element):
+	json_save(f"{files}.json", element)
+		
+def createMDP():
+	length = 50
+	caracteres = string.ascii_letters + string.digits
+	return "".join(choice(caracteres) for _ in range(length))
+
+def continuer():
+	test_input = input("Continuer ? : ")
+	return "quit" if (test_input == "y") else None
+	
+def confirmer():
+	conf = input("Etes-vous sûr ? [y/n] : ")
+	return None if (conf != "y") else "quit"
+
+def affichage():
+	print("Bonjour, voici la liste des possibilités : ")
+	print("1) Générer un mot de passe")
+	print("2) Accéder à un mot de passe")
+	print("3) supprimer un mot de passe")
+	print("4) Créer un compte")
+	print("quit) Quitter")
+	return input("Faites votre choix [1/2/3/quit]: ")
+
+def new_mot_de_passe(MDP):
+		name  = input("Donnez lui un nom pour le selectionner : ")
+		temp = json_variable("MotDePasse")
+		key = Fernet.generate_key()
+		temp[name] = encrypt(MDP,key).decode("UTF-8")
+		temp_chiffrement = json_variable("chiffrement")
+		temp_chiffrement[name] = key.decode("UTF-8")
+		json_sendVariable("MotDePasse",temp)
+		json_sendVariable("chiffrement",temp_chiffrement)
+		key = None
+
+acces=None
+MDPaccount = "bonjour"
+while(acces != "quit"):
+	acces = affichage()
+	if(acces == "1"):
+		MDP =createMDP()
+		print(f"Bonjour, voici un nouveau mot de passe : {MDP}")
+		choix = input("Voulez-vous l'enregistrer ? [y/n] : ")
+		if choix=="y":
+			new_mot_de_passe(MDP)
+		else : 
+			print("D'accord")
+		continuer()
+	elif(acces == "2"):
+		user = input("Entrez votre identifiant : ")
+		MDPuser = input("Veuillez entrer votre mot de passe : ")
+		infos_compte = json_variable("comptes")
+		if (user in infos_compte.keys()) and (decrypt(infos_compte[user][0],infos_compte[user][1].encode())):
+			Afich = input("Quel est le libellé du mot de passe à accéder ? ")
+			if Afich in json_variable("MotDePasse").keys():
+				mot = json_variable("MotDePasse")[Afich]
+				key = json_variable("chiffrement")[Afich].encode()
+				print(f"Le mot de passe de {Afich} : {decrypt(mot,key)}")
+				key = None
+			else:
+				print("Inexistant")
+		else :
+			print("Mot de passe incorrect")
+		continuer()
+	elif(acces == "3"):
+		user = input("Entrez votre identifiant : ")
+		MDPuser = input("Veuillez entrer votre mot de passe : ")
+		infos_compte = json_variable("comptes")
+		if (user in infos_compte.keys()) and (decrypt(infos_compte[user][0],infos_compte[user][1].encode())):
+			Asupp = input("Quel est le libellé du mot de passe à supprimer ? ")
+			lMdp = json_variable("MotDePasse")
+			lchif = json_variable("chiffrement")
+			if Asupp in lMdp.keys():
+				lMdp.pop(Asupp)
+				lchif.pop(Asupp)
+				json_sendVariable("MotDePasse",lMdp)
+				json_sendVariable("chiffrement",lchif)
+				print("Done")
+			else:
+				print("Inexistant")
+		else :
+			print("Mot de passe incorrect")
+		continuer()
+	elif (acces == "4"):
+		identifiant = input("Entrez votre identifiant")
+		mot_de_passe_identifiant = input("Entrez votre mot de passe")
+		key = Fernet.generate_key()
+		compte = json_variable("comptes")
+		if identifiant not in compte.keys():
+			compte[identifiant] = [encrypt(mot_de_passe_identifiant,key).decode("UTF-8"), key.decode("UTF-8")]
+			json_sendVariable("comptes",compte)
+
+	elif (acces == "quit"):
+		acces=confirmer()
+	else:
+		print("Veuillez entrer une commance existante")
+	
+os.system("clear")
+print("Merci d'avoir utilisé notre plateforme")
